@@ -211,6 +211,9 @@ def visualizeTree(rootNode, goalPose=None, pathNodeList=None, obstaclesData=None
     plt.xlim(-arenaSize[0] / 2, arenaSize[0] / 2)
     plt.ylim(-arenaSize[0] / 2, arenaSize[0] / 2)
 
+    plt.xlabel("x")
+    plt.ylabel("y")
+
 def runRRT(start=None, goal=None, stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
     
     if goal is None:
@@ -233,12 +236,12 @@ def runRRT(start=None, goal=None, stepLength=0.5, goalBiasFactor=5, arenaSize=(2
 
         print('Node count in RRT:', len(rrtHandle.nodeList))
         visualizeTree(rrtHandle.root, goal, path, ogHandle.obstaclesData, arenaSize)
-        plt.savefig("RRTApp/static/rrt.png")
+        plt.savefig("RRTApp/static/rrt.png", bbox_inches='tight')
 
-        return start, goal
+        return start, goal, True
     except:
         print("Path not found")
-        return start, goal
+        return start, goal, False
 
 if __name__ == '__main__':
     runRRT()
