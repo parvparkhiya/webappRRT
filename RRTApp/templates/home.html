@@ -3,12 +3,50 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title> Intro to Templates</title>
+        <title> RRT </title>
     </head>
     <body>
-        <h1> {{ appName }} </h1>
-        {% load static %}
-        <img src="{% static imageName %}" alt="RRT image">
-        <p> by {{ author }} </p> 
+        <center>
+            <h1> {{ appName }} </h1>
+            {% load static %}
+            <img src="{% static imageName %}" alt="RRT image">
+            
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <p>
+                    Goal:
+                    <label for="goalX">X</label>
+                    <input id="goalX" type="number" name="goalX" value="{{ goalX }}" step=any>
+                    <label for="goalY">Y</label>
+                    <input id="goalY" type="number" name="goalY" value="{{ goalY }}" step=any>
+
+                    <label for="goalRandom">Randomize</label>
+                    <input type="checkbox" id="goalRandom" name="goalRandom" value="goalRandom">
+                </p>
+                <p>
+                    Start:
+                    <label for="startX">X</label>
+                    <input id="startX" type="number" name="startX" value="{{ startX }}" step=any>
+                    <label for="startY">Y</label>
+                    <input id="startY" type="number" name="startY" value="{{ startY }}" step=any>
+                    <label for="startRandom">Randomize</label>
+                    <input type="checkbox" id="startRandom" name="startRandom" value="startRandom">
+                </p>
+                <p>
+                    <label for="stepLength">Step Length:</label>
+                    <input id="stepLength" type="number" name="stepLength" value="{{ stepLength }}" step=any>
+                </p>
+                <p>
+                    <label for="goalBias">Goal Bias:</label>
+                    <input id="goalBias" type="number" name="goalBias" value="{{ goalBias }}">
+                </p>
+                <p>
+                    <label for="reset">Reset</label>
+                    <input type="checkbox" id="reset" name="reset" value="reset">
+                </p>
+                <p> <input type="submit" value="Run RRT"> </p>
+            </form>
+            <p> by {{ author }} </p> 
+        </center>
     </body>
 </html>

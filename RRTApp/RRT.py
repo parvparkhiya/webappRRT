@@ -211,12 +211,17 @@ def visualizeTree(rootNode, goalPose=None, pathNodeList=None, obstaclesData=None
     plt.xlim(-arenaSize[0] / 2, arenaSize[0] / 2)
     plt.ylim(-arenaSize[0] / 2, arenaSize[0] / 2)
 
-def runRRT(start=(0.0, 0.0), goal=None, stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
+def runRRT(start=None, goal=None, stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
     
     if goal is None:
         gx = (np.random.rand()*(arenaSize[0])) - (arenaSize[0]/2.0)
         gy = (np.random.rand()*(arenaSize[1])) - (arenaSize[1]/2.0)
         goal = (gx, gy)
+
+    if start is None:
+        sx = (np.random.rand()*(arenaSize[0])) - (arenaSize[0]/2.0)
+        sy = (np.random.rand()*(arenaSize[1])) - (arenaSize[1]/2.0)
+        start = (sx, sy)
 
     try:
         rrtHandle = RRT(startPose=start, goalPose=goal, stepLength=stepLength, arenaSize=arenaSize, goalBiasFactor=goalBiasFactor)
@@ -229,8 +234,11 @@ def runRRT(start=(0.0, 0.0), goal=None, stepLength=0.5, goalBiasFactor=5, arenaS
         print('Node count in RRT:', len(rrtHandle.nodeList))
         visualizeTree(rrtHandle.root, goal, path, ogHandle.obstaclesData, arenaSize)
         plt.savefig("RRTApp/static/rrt.png")
+
+        return start, goal
     except:
         print("Path not found")
+        return start, goal
 
 if __name__ == '__main__':
     runRRT()
