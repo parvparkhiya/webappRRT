@@ -15,23 +15,26 @@
             <form action="/" method="POST">
                 {% csrf_token %}
                 <p>
-                    Goal:
-                    <label for="goalX">X</label>
-                    <input id="goalX" type="number" name="goalX" value="{{ goalX }}" step=any>
-                    <label for="goalY">Y</label>
-                    <input id="goalY" type="number" name="goalY" value="{{ goalY }}" step=any>
-
-                    <label for="goalRandom">Randomize</label>
-                    <input type="checkbox" id="goalRandom" name="goalRandom" value="goalRandom">
-                </p>
-                <p>
                     Start:
                     <label for="startX">X</label>
                     <input id="startX" type="number" name="startX" value="{{ startX }}" step=any>
                     <label for="startY">Y</label>
                     <input id="startY" type="number" name="startY" value="{{ startY }}" step=any>
+                    <label for="startT"><i> &theta;(deg) </i></label>
+                    <input id="startT" type="number" name="startT" value="{{ startT }}" step=any>
                     <label for="startRandom">Randomize</label>
-                    <input type="checkbox" id="startRandom" name="startRandom" value="startRandom">
+                    <input type="checkbox" id="startRandom" name="startRandom" value="startRandom" {{ startRandom }}>
+                </p>
+                <p>
+                    Goal:
+                    <label for="goalX">X</label>
+                    <input id="goalX" type="number" name="goalX" value="{{ goalX }}" step=any>
+                    <label for="goalY">Y</label>
+                    <input id="goalY" type="number" name="goalY" value="{{ goalY }}" step=any>
+                    <label for="goalT"><i>&theta;(deg) </i></label>
+                    <input id="goalT" type="number" name="goalT" value="{{ goalT }}" step=any>
+                    <label for="goalRandom">Randomize</label>
+                    <input type="checkbox" id="goalRandom" name="goalRandom" value="goalRandom" {{ goalRandom }}>
                 </p>
                 <p>
                     <label for="stepLength">Step Length:</label>
@@ -40,6 +43,10 @@
                 <p>
                     <label for="goalBias">Goal Bias:</label>
                     <input id="goalBias" type="number" name="goalBias" value="{{ goalBias }}">
+                </p>
+                <p>
+                    <label for="constraint"><i> Enable non-holonomic constraint </i></label>
+                    <input type="checkbox" id="constraint" name="constraint" value="constraint" {{ constraint }}>
                 </p>
                 <p>
                     <label for="reset">Reset</label>
