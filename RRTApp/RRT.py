@@ -2,9 +2,9 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import lib.kdtree as kdtree
-import OccupancyGrid
-from OccupancyGrid import plotObstacles
+import RRTApp.lib.kdtree as kdtree
+from RRTApp.OccupancyGrid import OccupancyGrid
+from RRTApp.OccupancyGrid import plotObstacles
 
 class RRTNode:
     def __init__(self, x, y, parentNode):
@@ -213,7 +213,7 @@ def visualizeTree(rootNode, goalPose=None, pathNodeList=None, obstaclesData=None
 
 def runRRT(start=(0.0, 0.0), goal=(-7.5, -8.0), stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
     rrtHandle = RRT(startPose=start, goalPose=goal, stepLength=stepLength, arenaSize=arenaSize, goalBiasFactor=goalBiasFactor)
-    ogHandle = OccupancyGrid.OccupancyGrid(arenaSize=arenaSize, customFilePath="data/obstacle.data")
+    ogHandle = OccupancyGrid(arenaSize=arenaSize, customFilePath="RRTApp/data/obstacle.data")
 
     rrtHandle.setOccupancyGrid(ogHandle)
     rrtHandle.generateRRT(visualizeFlag=False)
@@ -221,7 +221,7 @@ def runRRT(start=(0.0, 0.0), goal=(-7.5, -8.0), stepLength=0.5, goalBiasFactor=5
 
     print('Node count in RRT:', len(rrtHandle.nodeList))
     visualizeTree(rrtHandle.root, goal, path, ogHandle.obstaclesData, arenaSize)
-    plt.savefig("data/rrt.png")
+    plt.savefig("RRTApp/static/rrt.png")
 
 
 if __name__ == '__main__':

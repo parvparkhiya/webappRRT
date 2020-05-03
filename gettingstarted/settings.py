@@ -57,6 +57,7 @@ ROOT_URLCONF = "gettingstarted.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
+        # "DIRS": [os.path.join(BASE_DIR, 'RRTApp/templates')],
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {

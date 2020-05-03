@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title> Intro to Templates</title>
+    </head>
+    <body>
+        <h1> {{ appName }} </h1>
+        {% load static %}
+        <img src="{% static imageName %}" alt="RRT image">
+        <p> by {{ author }} </p> 
+    </body>
+</html>
