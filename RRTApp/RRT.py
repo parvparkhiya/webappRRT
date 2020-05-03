@@ -211,18 +211,26 @@ def visualizeTree(rootNode, goalPose=None, pathNodeList=None, obstaclesData=None
     plt.xlim(-arenaSize[0] / 2, arenaSize[0] / 2)
     plt.ylim(-arenaSize[0] / 2, arenaSize[0] / 2)
 
-def runRRT(start=(0.0, 0.0), goal=(-7.5, -8.0), stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
-    rrtHandle = RRT(startPose=start, goalPose=goal, stepLength=stepLength, arenaSize=arenaSize, goalBiasFactor=goalBiasFactor)
-    ogHandle = OccupancyGrid(arenaSize=arenaSize, customFilePath="RRTApp/data/obstacle.data")
+def runRRT(start=(0.0, 0.0), goal=None, stepLength=0.5, goalBiasFactor=5, arenaSize=(20, 20)):
+    
+    if goal is None:
+        gx = (np.random.rand()*(arenaSize[0])) - (arenaSize[0]/2.0)
+        gy = (np.random.rand()*(arenaSize[1])) - (arenaSize[1]/2.0)
+        goal = (gx, gy)
 
-    rrtHandle.setOccupancyGrid(ogHandle)
-    rrtHandle.generateRRT(visualizeFlag=False)
-    path = rrtHandle.getPath()
+    try:
+        rrtHandle = RRT(startPose=start, goalPose=goal, stepLength=stepLength, arenaSize=arenaSize, goalBiasFactor=goalBiasFactor)
+        ogHandle = OccupancyGrid(arenaSize=arenaSize, customFilePath="RRTApp/data/obstacle.data")
 
-    print('Node count in RRT:', len(rrtHandle.nodeList))
-    visualizeTree(rrtHandle.root, goal, path, ogHandle.obstaclesData, arenaSize)
-    plt.savefig("RRTApp/static/rrt.png")
+        rrtHandle.setOccupancyGrid(ogHandle)
+        rrtHandle.generateRRT(visualizeFlag=False)
+        path = rrtHandle.getPath()
 
+        print('Node count in RRT:', len(rrtHandle.nodeList))
+        visualizeTree(rrtHandle.root, goal, path, ogHandle.obstaclesData, arenaSize)
+        plt.savefig("RRTApp/static/rrt.png")
+    except:
+        print("Path not found")
 
 if __name__ == '__main__':
     runRRT()
